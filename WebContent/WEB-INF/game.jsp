@@ -6,12 +6,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tetris</title>
-	<link rel="stylesheet" href="/css/test.css">
+	<link rel="stylesheet" href="css/game.css">
 </head>
 
 <body>
-	
+	<table><tbody>
+	<%for(int i = 0; i < (Integer)request.getAttribute("height"); i++) {%>
+			<tr>
+			<%for(int j = 0; j < (Integer)request.getAttribute("width"); j++) {%>
+				<td></td>
+		<%}%>
+		</tr>
+	<%}%>
+	</tbody></table>
 </body>
 
-<script type="text/javascript" src="/javascript/test.js"></script>
+<script type="text/javascript" src="javascript/test.js"></script>
 </html>

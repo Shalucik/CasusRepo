@@ -1,0 +1,10 @@
+td {
+	width:5px;
+	height:5px;
+	background:gray;
+	border: solid 1px black;
+}
+
+table {
+	border-collapse: collapse;
+}
