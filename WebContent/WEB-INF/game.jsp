@@ -14,7 +14,7 @@
 	<%for(int i = 0; i < (Integer)request.getAttribute("height"); i++) {%>
 			<tr>
 			<%for(int j = 0; j < (Integer)request.getAttribute("width"); j++) {%>
-				<td></td>
+				<td id=<%=""+i+j %>></td>
 		<%}%>
 		</tr>
 	<%}%>
