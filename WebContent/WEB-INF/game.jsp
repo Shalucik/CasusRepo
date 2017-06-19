@@ -21,5 +21,5 @@
 	</tbody></table>
 </body>
 
-<script type="text/javascript" src="javascript/test.js"></script>
+<script type="text/javascript" src="javascript/game.js"></script>
 </html>
