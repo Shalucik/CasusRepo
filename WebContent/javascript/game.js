@@ -33,86 +33,95 @@ function setColor(pos, color){
 		document.getElementById("" + pos.y + pos.x).style.background = color;
 }
 
+function makeOrientation(pos1, pos2, pos3, pos4) {
+	var orientation = [];
+	orientation.push(pos1);
+	orientation.push(pos2);
+	orientation.push(pos3);
+	orientation.push(pos4);
+	return orientation;
+}
+
 function createBlock() {
 	const FRACTION = 0.14286;
 	var randomValue = Math.random();
+	var orientations = [];
 	var positions = [];
 	var block;
 	
 	if (randomValue >= 6 * FRACTION) { // line
-		positions.push(new pos(0, 0));
-		positions.push(new pos(1, 0)); 
-		positions.push(new pos(2, 0));
-		positions.push(new pos(3, 0));
+		orientations.push(makeOrientation(new pos(0, 0), new pos(1, 0), new pos(2, 0), new pos(3, 0)));
+		orientations.push(makeOrientation(new pos(1, 0), new pos(1, 1), new pos(1, 2), new pos(1, 3)));
 		block = {
-				positions,
+				orientations,
+				orientation: Math.floor(Math.random() * orientations.length),
 				color: "rgb(100, 149, 237)",
 				currentPos: new pos(3, 0)
 				}
 
 	} else if (randomValue >= 5 * FRACTION) { // square
-		positions.push(new pos(0, 0));
-		positions.push(new pos(1, 0)); 
-		positions.push(new pos(0, 1));
-		positions.push(new pos(1, 1));
+		orientations.push(makeOrientation(new pos(0, 0), new pos(1, 0), new pos(0, 1), new pos(1, 1)));
 		block = {
-				positions,
+				orientations,
+				orientation: Math.floor(Math.random() * orientations.length),
 				color: "rgb(0, 0, 255)",
 				currentPos: new pos(4, 0)
 				}
 	} else if (randomValue >= 4 * FRACTION) { // S
-		positions.push(new pos(0, 0));
-		positions.push(new pos(1, 0)); 
-		positions.push(new pos(0, 1));
-		positions.push(new pos(-1, 1));
+		orientations.push(makeOrientation(new pos(0, 0), new pos(1, 0), new pos(0, 1), new pos(-1, 1)));
+		orientations.push(makeOrientation(new pos(-1, 0), new pos(-1, -1), new pos(0, 0), new pos(0, 1)));
 		block = {
-				positions,
+				orientations,
+				orientation: Math.floor(Math.random() * orientations.length),
 				color: "rgb(0, 255, 0)",
 				currentPos: new pos(5, 0)
 				}
 	} else if (randomValue >= 3 * FRACTION) { // Z
-		positions.push(new pos(0, 0));
-		positions.push(new pos(1, 0)); 
-		positions.push(new pos(1, 1));
-		positions.push(new pos(2, 1));
+		orientations.push(makeOrientation(new pos(-1, 0), new pos(0, 0), new pos(0, 1), new pos(1, 1)));
+		orientations.push(makeOrientation(new pos(1, 0), new pos(1, 1), new pos(0, 1), new pos(0, 2)));
 		block = {
-				positions,
+				orientations,
+				orientation: Math.floor(Math.random() * orientations.length),
 				color: "rgb(255, 0, 0)",
 				currentPos: new pos(4, 0)
 				}
 	} else if (randomValue >= 2 * FRACTION) { // T
-		positions.push(new pos(0, 0));
-		positions.push(new pos(-1, 1)); 
-		positions.push(new pos(0, 1));
-		positions.push(new pos(1, 1));
+		orientations.push(makeOrientation(new pos(0, -1), new pos(-1, 0), new pos(0, 0), new pos(1, 0)));
+		orientations.push(makeOrientation(new pos(0, -1), new pos(0, 0), new pos(1, 0), new pos(0, 1)));
+		orientations.push(makeOrientation(new pos(-1, 0), new pos(0, 0), new pos(1, 0), new pos(0, 1)));
+		orientations.push(makeOrientation(new pos(0, -1), new pos(0, 0), new pos(-1, 0), new pos(0, 1)));
 		block = {
-				positions,
+				orientations,
+				orientation: Math.floor(Math.random() * orientations.length),
 				color: "rgb(255, 165, 0)",
-				currentPos: new pos(4, 0)
+				currentPos: new pos(4, 1)
 				}
 	} else if (randomValue >= 1 * FRACTION) { // J
-		positions.push(new pos(0, 0));
-		positions.push(new pos(0, 1)); 
-		positions.push(new pos(0, 2));
-		positions.push(new pos(-1, 2));
+		orientations.push(makeOrientation(new pos(0, 0), new pos(0, -1), new pos(0, 1), new pos(-1, 1)));
+		orientations.push(makeOrientation(new pos(1, 0), new pos(0, 0), new pos(-1, 0), new pos(-1, -1)));
+		orientations.push(makeOrientation(new pos(-1, 0), new pos(-1, -1), new pos(0, -1), new pos(-1, 1)));
+		orientations.push(makeOrientation(new pos(-1, 0), new pos(0, 0), new pos(1, 0), new pos(1, 1)));
 		block = {
-				positions,
+				orientations,
+				orientation: Math.floor(Math.random() * orientations.length),
 				color: "rgb(255, 215, 0)",
-				currentPos: new pos(5, 0)
+				currentPos: new pos(5, 1)
 				}
 	} else if (randomValue >= 0) { // L
-		positions.push(new pos(0, 0));
-		positions.push(new pos(0, 1)); 
-		positions.push(new pos(0, 2));
-		positions.push(new pos(1, 2));
+		orientations.push(makeOrientation(new pos(0, 0), new pos(0, -1), new pos(0, 1), new pos(1, 1)));
+		orientations.push(makeOrientation(new pos(1, 0), new pos(0, 0), new pos(-1, 0), new pos(-1, 1)));
+		orientations.push(makeOrientation(new pos(-1, -1), new pos(0, -1), new pos(0, 0), new pos(0, 1)));
+		orientations.push(makeOrientation(new pos(-1, 0), new pos(0, 0), new pos(1, 0), new pos(1, -1)));
 		block = {
-				positions,
+				orientations,
+				orientation: Math.floor(Math.random() * orientations.length),
 				color: "rgb(148, 0, 211)",
-				currentPos: new pos(4, 0)
+				currentPos: new pos(4, 1)
 				}
 	}
-	for(var i = 0; i < positions.length; i++) {
-		var position = new pos(block.currentPos.x + block.positions[i].x, block.currentPos.y + block.positions[i].y);
+	
+	for(var i = 0; i < block.orientations[block.orientation].length; i++) {
+		var position = new pos(block.currentPos.x + block.orientations[block.orientation][i].x, block.currentPos.y + block.orientations[block.orientation][i].y);
 		if(grid[position.x][position.y]) {
 			return null;
 		}
@@ -124,9 +133,9 @@ function createBlock() {
 function canMove(block){
 	curPos = []
 	nextPos = [];
-	for(var i = 0; i < block.positions.length; i++){
-		curPos.push(new pos(block.currentPos.x + block.positions[i].x, block.currentPos.y + block.positions[i].y));
-		nextPos.push(new pos(block.currentPos.x + block.positions[i].x, block.currentPos.y + block.positions[i].y+1))
+	for(var i = 0; i < block.orientations[block.orientation].length; i++){
+		curPos.push(new pos(block.currentPos.x + block.orientations[block.orientation][i].x, block.currentPos.y + block.orientations[block.orientation][i].y));
+		nextPos.push(new pos(block.currentPos.x + block.orientations[block.orientation][i].x, block.currentPos.y + block.orientations[block.orientation][i].y+1));
 	}
 	
 	
@@ -154,7 +163,8 @@ function canMove(block){
 
 function dropBlock() {
 	this.block = createBlock();
-	if(block != null){
+	
+	if(block != null){ 
 		this.interval = setInterval(function() {		
 			if(!canMove(block)) {
 				clearInterval(interval);
@@ -165,3 +175,6 @@ function dropBlock() {
 		init();
 	}
 }
+
+
+// Movement
