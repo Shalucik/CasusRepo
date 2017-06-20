@@ -160,7 +160,7 @@ function dropBlock() {
 				clearInterval(interval);
 				dropBlock();
 			}
-		}, 1);	
+		}, 50);	
 	} else {
 		init();
 	}
