@@ -86,43 +86,49 @@ function getBlock(){
 }
 
 function canMove (block, direction) {
-	var canMove = true;
 	var currentPositions = [];
 	var nextPositions = [];
 	
 	for (i = 0; i < block.positions.length; i++) {
-		console.log("pos: " + (block.currentPos.x + block.positions[i].x) + (block.currentPos.y + block.positions[i].y));
 		currentPositions.push(document.getElementById("" + (block.currentPos.x + block.positions[i].x) + (block.currentPos.y + block.positions[i].y)));
 		nextPositions.push(document.getElementById("" + (block.currentPos.x + block.positions[i].x) + (block.currentPos.y + block.positions[i].y + 1)));
-		console.log("nextpos: " + (block.currentPos.x + block.positions[i].x)	 + (block.currentPos.y + block.positions[i].y + 1));
-		if (!nextPositions[i].style.background === EMPTYCOLOR) {
-			canMove = false;
+	}
+	
+	for (i = 0; i < block.positions.length; i++) {
+		if (currentPositions[i] == null || nextPositions[i] == null) {
+			return false;
+		}
+		currentPositions[i].style.background = EMPTYCOLOR;
+	}
+	
+	for (i = 0; i < block.positions.length; i++) {
+		if (nextPositions[i] == null) {
+			return false;
 		}
 	}
 	
-	if (canMove) {
-		for (i = 0; i < block.positions.length; i++) {
-			currentPositions[i].style.background = EMPTYCOLOR;
-			block.positions[i].y++;
+	block.currentPos.y++;
+	
+	for (i = 0; i < block.positions.length; i++) {
+		if (nextPositions[i] == null) {
+			return false;
 		}
-		
-		for (i = 0; i < block.positions.length; i++) {
-			nextPositions[i].style.background = block.color;
-		}
-		
-		return true;
-	} else {
-		console.log("Can't drop");
-		return false;
+		nextPositions[i].style.background = block.color;
 	}
+	return canMove;
 }
 
-var newBlock = getBlock();
-var interval1 = setInterval(function() {
-	if(canMove( newBlock )) {
-		console.log("can move");
-	}
-}, 50)
+function dropBlock() {
+	this.newBlock = getBlock();
+	this.interval = setInterval(function() {
+		if(!canMove( newBlock )) {
+			clearInterval(interval);
+			dropBlock();	
+		}
+	}, 50);
+}
+
+dropBlock();
 
 
 
