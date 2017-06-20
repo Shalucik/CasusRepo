@@ -95,7 +95,8 @@ function canMove (block, direction) {
 	}
 	
 	for (i = 0; i < block.positions.length; i++) {
-		if (currentPositions[i] == null || nextPositions[i] == null) {
+		if (nextPositions[i] == null) {
+			console.log("" + (block.currentPos.x + block.positions[i].x) + (block.currentPos.y + block.positions[i].y))
 			return false;
 		}
 	}
