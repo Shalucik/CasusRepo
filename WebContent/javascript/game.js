@@ -43,9 +43,6 @@ function canMove(block){
 	curPos = block.position;
 	nextPos = new pos(curPos.x, curPos.y +1);
 	
-	
-	
-	
 	if(grid[nextPos.x][nextPos.y] || nextPos.y == height){
 		grid[curPos.x][curPos.y] = true;
 		return false;
