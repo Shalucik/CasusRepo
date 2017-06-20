@@ -9,21 +9,24 @@ function init() {
 	dropBlock();
 }
 
-function createGrid(){
-	for(var i = 0; i < height; i++) {
-		var row = [];
-		for(var j = 0; j < width; j++) {
-			row.push(false);
-		}
-		grid.push(row);
-	}
-	console.log(grid);
-}
-
 function pos(x, y) {
 	this.x = x;
 	this.y = y;
 }
+
+function createGrid(){
+	grid = [];
+	for(var i = 0; i < height; i++) {
+		var row = [];
+		for(var j = 0; j < width; j++) {
+			setColor(new pos(j,i), "gray");
+			row.push(false);
+		}
+		grid.push(row);
+	}	
+}
+
+
 
 function setColor(pos, color){	
 	if(pos.y >=0 && pos.x >= 0 && pos.x < width && pos.y < height)
@@ -109,7 +112,11 @@ function createBlock() {
 				}
 	}
 	for(var i = 0; i < positions.length; i++) {
-		setColor(new pos(block.currentPos.x + block.positions[i].x, block.currentPos.y + block.positions[i].y), block.color);
+		var position = new pos(block.currentPos.x + block.positions[i].x, block.currentPos.y + block.positions[i].y);
+		if(grid[position.x][position.y]) {
+			return null;
+		}
+		setColor(position, block.color);
 	}
 	return block;
 }
@@ -132,9 +139,6 @@ function canMove(block){
 		}
 	}
 	
-	console.log(curPos);
-	console.log(nextPos);
-	
 	for(var i = 0; i < curPos.length; i++){
 		setColor(curPos[i], "gray")		
 	}
@@ -150,10 +154,14 @@ function canMove(block){
 
 function dropBlock() {
 	this.block = createBlock();
-	this.interval = setInterval(function() {
-		if(!canMove(block)) {
-			clearInterval(interval);
-			dropBlock();
-		}
-	}, 50)
+	if(block != null){
+		this.interval = setInterval(function() {		
+			if(!canMove(block)) {
+				clearInterval(interval);
+				dropBlock();
+			}
+		}, 1);	
+	} else {
+		init();
+	}
 }
