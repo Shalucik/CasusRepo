@@ -162,7 +162,7 @@ function canMove(block){
 }
 
 // Movement
-document.onKeyDown = function(e) {
+document.onkeydown = function(e) {
 	if (e.keyCode == 37) {
 		move_left = true;
 		move_right = false;
