@@ -125,20 +125,23 @@ function canMove(block){
 	
 	for(var i = 0; i < nextPos.length; i++) {
 		if(grid[nextPos[i].x][nextPos[i].y] || nextPos[i].y == height){
-			grid[curPos[i].x][curPos[i].y] = true;
+			for(var j = 0; j < curPos.length; j++){
+				grid[curPos[j].x][curPos[j].y] = true;
+			}
 			return false;
 		}
 	}
 	
-	console.log(block.positions);
 	console.log(curPos);
 	console.log(nextPos);
 	
 	for(var i = 0; i < curPos.length; i++){
-		setColor(curPos[i], "gray")
-		setColor(nextPos[i], block.color);
+		setColor(curPos[i], "gray")		
 	}
 	
+	for(var i = 0; i < curPos.length; i++){
+		setColor(nextPos[i], block.color);
+	}
 	
 	block.currentPos.y++;
 	
@@ -152,5 +155,5 @@ function dropBlock() {
 			clearInterval(interval);
 			dropBlock();
 		}
-	}, 500)
+	}, 50)
 }
