@@ -140,7 +140,7 @@ function canMove(block){
 	}
 	
 	for(var i = 0; i < curPos.length; i++){
-		setColor(curPos[i], "gray")		
+		setColor(curPos[i], "gray");		
 	}
 	
 	for(var i = 0; i < curPos.length; i++){
