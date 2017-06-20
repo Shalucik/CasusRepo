@@ -18,7 +18,7 @@ function getBlock(){
 		block = {
 				positions,
 				color: "rgb(100, 149, 237)",
-				currentPos: new pos(4, 0)
+				currentPos: new pos(3, 0)
 				}
 
 	} else if (randomValue >= 5 * FRACTION) { // square
@@ -39,7 +39,7 @@ function getBlock(){
 		block = {
 				positions,
 				color: "rgb(0, 255, 0)",
-				currentPos: new pos(4, 0)
+				currentPos: new pos(5, 0)
 				}
 	} else if (randomValue >= 3 * FRACTION) { // Z
 		positions.push(new pos(0, 0));
@@ -69,7 +69,7 @@ function getBlock(){
 		block = {
 				positions,
 				color: "rgb(255, 215, 0)",
-				currentPos: new pos(4, 0)
+				currentPos: new pos(5, 0)
 				}
 	} else if (randomValue >= 0) { // L
 		positions.push(new pos(0, 0));
@@ -98,22 +98,20 @@ function canMove (block, direction) {
 		if (currentPositions[i] == null || nextPositions[i] == null) {
 			return false;
 		}
-		currentPositions[i].style.background = EMPTYCOLOR;
 	}
 	
 	for (i = 0; i < block.positions.length; i++) {
-		if (nextPositions[i] == null) {
-			return false;
-		}
+		currentPositions[i].style.backgroundColor = EMPTYCOLOR;
 	}
 	
 	block.currentPos.y++;
 	
 	for (i = 0; i < block.positions.length; i++) {
-		if (nextPositions[i] == null) {
-			return false;
+		if (nextPositions[i].style.backgroundColor != EMPTYCOLOR) {
+			console.log(nextPositions[i].style.backgroundColor);
+			//return false;
 		}
-		nextPositions[i].style.background = block.color;
+		nextPositions[i].style.backgroundColor = block.color;
 	}
 	return canMove;
 }
@@ -129,28 +127,3 @@ function dropBlock() {
 }
 
 dropBlock();
-
-
-
-//var x = 0;
-//var y = 0;
-//
-//fall();
-//setInterval(fall, 1000);
-//
-//
-//function fall(){	
-//	console.log(getBlock());
-//	
-//	var obj = document.getElementById("" + x + y);
-//	obj.style.backgroundColor = 'rgb(255, 0, 0)';
-//	console.log(obj.style.backgroundColor)
-//	obj = document.getElementById("" + ++x + y);
-//	obj.style.background = 'red';
-//	if(x == 19) {		
-//		x = 0;
-//		y = 0;
-//		obj.style.background = 'grey';	
-//	}
-//}
-
