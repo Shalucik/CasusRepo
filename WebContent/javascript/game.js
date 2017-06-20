@@ -96,7 +96,6 @@ function canMove (block, direction) {
 	
 	for (i = 0; i < block.positions.length; i++) {
 		if (nextPositions[i] == null) {
-			console.log("" + (block.currentPos.x + block.positions[i].x) + (block.currentPos.y + block.positions[i].y))
 			return false;
 		}
 	}
@@ -111,6 +110,8 @@ function canMove (block, direction) {
 		if (nextPositions[i].style.backgroundColor != EMPTYCOLOR) {
 			console.log(nextPositions[i].style.backgroundColor);
 			//return false;
+		} else {
+			console.log("okay");
 		}
 		nextPositions[i].style.backgroundColor = block.color;
 	}
