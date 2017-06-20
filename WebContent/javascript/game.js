@@ -161,20 +161,58 @@ function canMove(block){
 	return true;
 }
 
+// Movement
+document.onKeyDown = function(e) {
+	if (e.keyCode == 37) {
+		move_left = true;
+		move_right = false;
+	} else if (e.keyCode == 39) {
+		move_right = true;
+		move_left = false;
+	} else if (e.keyCode == 38) {
+		rotate_right = true;
+	}
+}
+const SPEED = 15;
+var frame = 0;
+var move_left = false;
+var move_right = false;
+var rotate_left = false;
+var rotate_right = false;
 function dropBlock() {
 	this.block = createBlock();
 	
 	if(block != null){ 
-		this.interval = setInterval(function() {		
+		this.interval = setInterval(function() {
+			if (move_left) moveBlock(false);
+			else if (move_right) moveBlock(true);
+			
+			if (rotate_right) rotateBlock(true);
+			else if (rotate_left) rotateBlock(false);
+			
+			
+			if (frame < SPEED) {
+				frame++;
+				return;
+			} else {
+				frame = 0;
+			}
+			
 			if(!canMove(block)) {
 				clearInterval(interval);
 				dropBlock();
 			}
-		}, 50);	
+		}, 1);	
 	} else {
 		init();
 	}
 }
 
+function moveBlock() {
+	
+}
 
-// Movement
+function rotateBlock() {
+	
+}
+
