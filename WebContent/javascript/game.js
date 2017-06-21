@@ -229,5 +229,16 @@ function moveBlock(block, direction) {
 function rotateBlock(block, direction) {
 	rotate_right = false;
 	rotate_left = false;
+	if(direction){
+		for(var i = 0; i < block.orientations[0].length; i++){
+			setColor(new pos(block.orientations[block.orientation][i].x + block.currentPos.x, block.orientations[block.orientation][i].y + block.currentPos.y), "gray");
+		}
+		if(++block.orientation == block.orientations.length) {
+			block.orientation = 0;
+		}
+		for(var i = 0; i < block.orientations[0].length; i++){
+			setColor(new pos(block.orientations[block.orientation][i].x + block.currentPos.x, block.orientations[block.orientation][i].y + block.currentPos.y), block.color);
+		}
+	}
 }
 
