@@ -130,12 +130,12 @@ function createBlock() {
 	return block;
 }
 
-function canMove(block){
+function canMove(block, x, y){
 	curPos = []
 	nextPos = [];
 	for(var i = 0; i < block.orientations[block.orientation].length; i++){
 		curPos.push(new pos(block.currentPos.x + block.orientations[block.orientation][i].x, block.currentPos.y + block.orientations[block.orientation][i].y));
-		nextPos.push(new pos(block.currentPos.x + block.orientations[block.orientation][i].x, block.currentPos.y + block.orientations[block.orientation][i].y+1));
+		nextPos.push(new pos(block.currentPos.x + block.orientations[block.orientation][i].x + x, block.currentPos.y + block.orientations[block.orientation][i].y+y));
 	}
 	
 	
@@ -156,7 +156,8 @@ function canMove(block){
 		setColor(nextPos[i], block.color);
 	}
 	
-	block.currentPos.y++;
+	block.currentPos.x += x;
+	block.currentPos.y += y;
 	
 	return true;
 }
@@ -184,11 +185,11 @@ function dropBlock() {
 	
 	if(block != null){ 
 		this.interval = setInterval(function() {
-			if (move_left) moveBlock(false);
-			else if (move_right) moveBlock(true);
+			if (move_left) moveBlock(block, false);
+			else if (move_right) moveBlock(block, true);
 			
-			if (rotate_right) rotateBlock(true);
-			else if (rotate_left) rotateBlock(false);
+			if (rotate_right) rotateBlock(block, true);
+			else if (rotate_left) rotateBlock(block, false);
 			
 			
 			if (frame < SPEED) {
@@ -198,7 +199,7 @@ function dropBlock() {
 				frame = 0;
 			}
 			
-			if(!canMove(block)) {
+			if(!canMove(block, 0, 1)) {
 				clearInterval(interval);
 				dropBlock();
 			}
@@ -208,11 +209,25 @@ function dropBlock() {
 	}
 }
 
-function moveBlock() {
-	
+function moveBlock(block, direction) {
+	move_left = false;
+	move_right = false;
+	var ori = block.orientations[block.orientation];	
+	for(var i = 0; i < block.orientations[0].length; i++){		
+		if(direction && block.currentPos.x + ori[i].x == width-1){
+			return;
+		} else if(!direction && block.currentPos.x + ori[i].x == 0){
+			return;
+		}
+	}
+	if(direction)
+		canMove(block, 1, 0);
+	else 
+		canMove(block, -1, 0);
 }
 
-function rotateBlock() {
-	
+function rotateBlock(block, direction) {
+	rotate_right = false;
+	rotate_left = false;
 }
 
