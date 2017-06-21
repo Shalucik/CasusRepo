@@ -48,6 +48,7 @@ function createBlock() {
 	var orientations = [];
 	var positions = [];
 	var block;
+	var color = "rgb(" + (Math.floor(Math.random() * 255)) + ", " + (Math.floor(Math.random() * 255)) + ", " + (Math.floor(Math.random() * 255)) + ")"; 
 	
 	if (randomValue >= 6 * FRACTION) { // line
 		orientations.push(makeOrientation(new pos(0, 0), new pos(1, 0), new pos(2, 0), new pos(3, 0)));
@@ -55,7 +56,7 @@ function createBlock() {
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
-				color: "rgb(100, 149, 237)",
+				color: color,
 				currentPos: new pos(3, 0)
 				}
 
@@ -64,7 +65,7 @@ function createBlock() {
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
-				color: "rgb(0, 0, 255)",
+				color: color,
 				currentPos: new pos(4, 0)
 				}
 	} else if (randomValue >= 4 * FRACTION) { // S
@@ -73,7 +74,7 @@ function createBlock() {
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
-				color: "rgb(0, 255, 0)",
+				color: color,
 				currentPos: new pos(5, 0)
 				}
 	} else if (randomValue >= 3 * FRACTION) { // Z
@@ -82,7 +83,7 @@ function createBlock() {
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
-				color: "rgb(255, 0, 0)",
+				color: color,
 				currentPos: new pos(4, 0)
 				}
 	} else if (randomValue >= 2 * FRACTION) { // T
@@ -93,7 +94,7 @@ function createBlock() {
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
-				color: "rgb(255, 165, 0)",
+				color: color,
 				currentPos: new pos(4, 1)
 				}
 	} else if (randomValue >= 1 * FRACTION) { // J
@@ -104,7 +105,7 @@ function createBlock() {
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
-				color: "rgb(255, 215, 0)",
+				color: color,
 				currentPos: new pos(5, 1)
 				}
 	} else if (randomValue >= 0) { // L
@@ -115,7 +116,7 @@ function createBlock() {
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
-				color: "rgb(148, 0, 211)",
+				color: color,
 				currentPos: new pos(4, 1)
 				}
 	}
@@ -142,9 +143,9 @@ function canMove(block, x, y){
 	for(var i = 0; i < nextPos.length; i++) {
 		if(nextPos[i].y == height || grid[nextPos[i].y][nextPos[i].x]){
 			for(var j = 0; j < curPos.length; j++){
-				grid[curPos[j].y][curPos[j].x] = true;
-				checkLines();
+				grid[curPos[j].y][curPos[j].x] = true;				
 			}
+			checkLines();
 			return false;
 		}
 	}
@@ -246,7 +247,7 @@ function rotateBlock(block, direction) {
 function checkLines(){
 	for(var i = grid.length - 1; i >= 0; i--){
 		for(var j = 0; j < grid[i].length; j++) {
-			if(!grid[j][i])
+			if(!grid[i][j])
 				break;
 			if(j == grid[i].length-1){
 				console.log("line");
