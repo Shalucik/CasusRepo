@@ -29,7 +29,7 @@ function createGrid(){
 
 
 function setColor(pos, color){	
-	if(pos.y >=0 && pos.x >= 0 && pos.x < width && pos.y < height)
+	if(pos.y >=0 && pos.x >= 0 && pos.x < height && pos.y < width)
 		document.getElementById("" + pos.y + pos.x).style.background = color;
 }
 
@@ -140,9 +140,10 @@ function canMove(block, x, y){
 	
 	
 	for(var i = 0; i < nextPos.length; i++) {
-		if(grid[nextPos[i].x][nextPos[i].y] || nextPos[i].y == height){
+		if(nextPos[i].y == height || grid[nextPos[i].y][nextPos[i].x]){
 			for(var j = 0; j < curPos.length; j++){
-				grid[curPos[j].x][curPos[j].y] = true;
+				grid[curPos[j].y][curPos[j].x] = true;
+				checkLines();
 			}
 			return false;
 		}
@@ -174,7 +175,7 @@ document.onkeydown = function(e) {
 		rotate_right = true;
 	}
 }
-const SPEED = 15;
+const SPEED = 25;
 var frame = 0;
 var move_left = false;
 var move_right = false;
@@ -238,6 +239,18 @@ function rotateBlock(block, direction) {
 		}
 		for(var i = 0; i < block.orientations[0].length; i++){
 			setColor(new pos(block.orientations[block.orientation][i].x + block.currentPos.x, block.orientations[block.orientation][i].y + block.currentPos.y), block.color);
+		}
+	}
+}
+
+function checkLines(){
+	for(var i = grid.length - 1; i >= 0; i--){
+		for(var j = 0; j < grid[i].length; j++) {
+			if(!grid[j][i])
+				break;
+			if(j == grid[i].length-1){
+				console.log("line");
+				}
 		}
 	}
 }
