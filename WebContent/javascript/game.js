@@ -29,7 +29,7 @@ function createGrid(){
 
 
 function setColor(pos, color){	
-	if(pos.y >=0 && pos.x >= 0 && pos.x < height && pos.y < width)
+	if(pos.y >=0 && pos.x >= 0 && pos.x < width && pos.y < height)
 		document.getElementById("" + pos.y + pos.x).style.background = color;
 }
 
@@ -69,7 +69,7 @@ function createBlock() {
 				}
 	} else if (randomValue >= 4 * FRACTION) { // S
 		orientations.push(makeOrientation(new pos(0, 0), new pos(1, 0), new pos(0, 1), new pos(-1, 1)));
-		orientations.push(makeOrientation(new pos(-1, 0), new pos(-1, -1), new pos(0, 0), new pos(0, 1)));
+		orientations.push(makeOrientation(new pos(-1, 1), new pos(-1, 0), new pos(0, 1), new pos(0, 2)));
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
@@ -88,7 +88,7 @@ function createBlock() {
 	} else if (randomValue >= 2 * FRACTION) { // T
 		orientations.push(makeOrientation(new pos(0, -1), new pos(-1, 0), new pos(0, 0), new pos(1, 0)));
 		orientations.push(makeOrientation(new pos(0, -1), new pos(0, 0), new pos(1, 0), new pos(0, 1)));
-		orientations.push(makeOrientation(new pos(-1, 0), new pos(0, 0), new pos(1, 0), new pos(0, 1)));
+		orientations.push(makeOrientation(new pos(-1, -1), new pos(0, -1), new pos(1, -1), new pos(0, 0)));
 		orientations.push(makeOrientation(new pos(0, -1), new pos(0, 0), new pos(-1, 0), new pos(0, 1)));
 		block = {
 				orientations,
@@ -100,7 +100,7 @@ function createBlock() {
 		orientations.push(makeOrientation(new pos(0, 0), new pos(0, -1), new pos(0, 1), new pos(-1, 1)));
 		orientations.push(makeOrientation(new pos(1, 0), new pos(0, 0), new pos(-1, 0), new pos(-1, -1)));
 		orientations.push(makeOrientation(new pos(-1, 0), new pos(-1, -1), new pos(0, -1), new pos(-1, 1)));
-		orientations.push(makeOrientation(new pos(-1, 0), new pos(0, 0), new pos(1, 0), new pos(1, 1)));
+		orientations.push(makeOrientation(new pos(-1, -1), new pos(0, -1), new pos(1, -1), new pos(1, 0)));
 		block = {
 				orientations,
 				orientation: Math.floor(Math.random() * orientations.length),
@@ -109,7 +109,7 @@ function createBlock() {
 				}
 	} else if (randomValue >= 0) { // L
 		orientations.push(makeOrientation(new pos(0, 0), new pos(0, -1), new pos(0, 1), new pos(1, 1)));
-		orientations.push(makeOrientation(new pos(1, 0), new pos(0, 0), new pos(-1, 0), new pos(-1, 1)));
+		orientations.push(makeOrientation(new pos(1, -1), new pos(0, -1), new pos(-1, -1), new pos(-1, 0)));
 		orientations.push(makeOrientation(new pos(-1, -1), new pos(0, -1), new pos(0, 0), new pos(0, 1)));
 		orientations.push(makeOrientation(new pos(-1, 0), new pos(0, 0), new pos(1, 0), new pos(1, -1)));
 		block = {
@@ -122,7 +122,7 @@ function createBlock() {
 	
 	for(var i = 0; i < block.orientations[block.orientation].length; i++) {
 		var position = new pos(block.currentPos.x + block.orientations[block.orientation][i].x, block.currentPos.y + block.orientations[block.orientation][i].y);
-		if(grid[position.x][position.y]) {
+		if(grid[position.y][position.x]) {
 			return null;
 		}
 		setColor(position, block.color);
